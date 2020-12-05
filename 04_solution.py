@@ -4,8 +4,11 @@ with open("04passports") as f:
     str = f.read()
 
 passports = str.split("\n\n")
-print(len(passports))
+# print(len(passports))
 
+
+#################### functions to validate each property ####################
+# They are all getting a re.Match-Object
 def byrvalid(v):
     return True if 1920 <= int(v.group(1)) <= 2002 else False
 def iyrvalid(v):
@@ -27,20 +30,22 @@ def eclvalid(v):
     return True if v.group(1) in eyecolors else False
 def pidvalid(v):
     return True if re.match(r"^\D*\d{9}\D*$", v.group(1)) else False # This is necessary as it is to guarantee that only and only 9 digits are matched
+#################### functions to validate each property ####################
 
 
 def is_pass_valid(s):
+    """gets a String with the passport information, each property divided by a whitespace or newline.
+    returns True if all (7) credentials are fullfilled (excluded cid)"""
     d = {}
     properties = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"] #, "cid"]
     validators = {"byr": byrvalid, "iyr": iyrvalid, "eyr": eyrvalid, "hgt": hgtvalid, "hcl": hclvalid, "ecl": eclvalid, "pid": pidvalid}
-    regex_temp = r":(#?\w+\b)"
     for prop in properties:
-        pattern = prop + regex_temp
+        pattern = prop + r":(#?\w+\b)"
         if  match := re.search(pattern, s):
             # print(match.groups())
             if validators[prop](match):             # comment this line to get the code for the first part
                 d[prop] = match.group(1)
-    print(f"L={len(d)} with {d}")
+    # print(f"L={len(d)} with {d}")
     if len(d) >= 7:
         return True
 
@@ -48,8 +53,6 @@ if __name__ == "__main__":
     counter = 0
     for pp in passports:
         # print(pp)
-        pp += '\n'
         if is_pass_valid(pp):
             counter += 1
-
     print(counter)
