@@ -21,10 +21,10 @@ all_bags = {match.group(1):listed_containers(match.group(2)) for match in rules}
 
 
 ########## in hw many bags can shiny gold be in ##########
-def big_bags(bag, all, other_parents = []):
+def big_bags(bag, all, other_parents = set()):
     for big, littles in all.items():
-        if bag in [name for nums, name in littles] and big not in other_parents:
-            other_parents.append(big)
+        if bag in [name for nums, name in littles]:
+            other_parents.add(big)
             big_bags(big, all, other_parents)
     return other_parents
 
