@@ -1,7 +1,8 @@
 with open("09data") as f:
     data = [int(i) for i in f.read().splitlines()]
 
-def initial_field():
+########## part one ##########
+def initialize_field():
     l = []
     for i in range(24):
         l.append([])
@@ -19,30 +20,28 @@ def is_in_field(field: list, number: int):
     return True if number in [i for subl in field for i in subl] else False
 
 
-possible_sums = initial_field()
+possible_sums = initialize_field()
+idx = 25
+while is_in_field(possible_sums, data[idx]):
+    update_field(possible_sums, idx)
+    idx += 1
 
-x = 25
-while True:
-    num = data[x]
-    if not is_in_field(possible_sums, num):
-        break
-    update_field(possible_sums, x)
-    x += 1
+not_sum = data[idx]
+print(f"{not_sum=} at index {idx=}")
 
-not_sum = data[x]
-print(f"{not_sum=} at index {x=}")
+########## part two ##########
+def find_sequence(s):
+    i=0; j=0
+    global id
+    seq_sum = data[i]
+    while True:
+        if seq_sum < s: j += 1; seq_sum += data[j]
+        if seq_sum > s: seq_sum -= data[i]; i += 1
+        if seq_sum == s: break
+    return i,j
 
-def sequence_sums(s):
-    for i in range(len(data)):
-        seq_sum = 0
-        for j in range(i, len(data)):
-            seq_sum += data[j]
-            if seq_sum > s:
-                break
-            elif seq_sum == s:
-                return i, j
 
-start, end = sequence_sums(not_sum)
+start, end = find_sequence(not_sum)
 print(f"Sequence starts at {start} until {end}")
 
 res = min(data[start:end+1]) + max(data[start:end+1])
