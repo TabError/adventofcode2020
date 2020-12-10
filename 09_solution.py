@@ -2,26 +2,26 @@ with open("09data") as f:
     data = [int(i) for i in f.read().splitlines()]
 
 ########## part one ##########
-def initialize_field():
+def initialize_field(length: int):
     l = []
-    for i in range(24):
+    for i in range(length - 1):
         l.append([])
-        for j in range(i+1,24+1):
+        for j in range(i+1,length):
             l[i].append(data[i] + data[j])
     return l
 
 def update_field(field: list, new_index: int):
     field.pop(0)
-    for i in range(23):
-        field[i].append(data[new_index - 24 + i] + data[new_index])
+    for i in range(len(field)):
+        field[i].append(data[new_index - (len(field)+1) + i] + data[new_index])
     field.append([data[new_index - 1] + data[new_index]])
 
 def is_in_field(field: list, number: int):
     return True if number in [i for subl in field for i in subl] else False
 
-
-possible_sums = initialize_field()
-idx = 25
+len_preamble = 25
+possible_sums = initialize_field(len_preamble)
+idx = len_preamble
 while is_in_field(possible_sums, data[idx]):
     update_field(possible_sums, idx)
     idx += 1
