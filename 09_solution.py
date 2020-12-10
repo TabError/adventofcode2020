@@ -32,7 +32,6 @@ print(f"{not_sum=} at index {idx=}")
 ########## part two ##########
 def find_sequence(s):
     i=0; j=0
-    global id
     seq_sum = data[i]
     while True:
         if seq_sum < s: j += 1; seq_sum += data[j]
