@@ -26,12 +26,14 @@ def one_series(adapters: list):
     adapters += [0, max(adapters)+3]
     adapters.sort()
     series = []
-    i = 0
-    while i < len(adapters)-2:
-        series_length = 0
-        while adapters[i+1] - adapters[i] == 3: i += 1
-        while adapters[i+1] - adapters[i] == 1: i += 1; series_length += 1
-        series.append(series_length)
+    i = 0; series_length = 0
+    for i in range(len(adapters)-1):
+        if adapters[i+1] - adapters[i] == 1:
+            series_length += 1
+        if adapters[i+1] - adapters[i] == 3:
+            series.append(series_length)
+            series_length = 0
+        i += 1
     return series
 
 def tribonacci(length: int):
@@ -39,7 +41,6 @@ def tribonacci(length: int):
     while len(tri) <= length:
         tri.append(tri[len(tri)-1] + tri[len(tri)-2] + tri[len(tri)-3])
     return tri
-
 
 list_of_one_series = one_series(data.copy())
 # print(f"{list_of_one_series=}")
