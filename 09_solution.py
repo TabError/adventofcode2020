@@ -34,9 +34,9 @@ def find_sequence(s):
     i=0; j=0
     seq_sum = data[i]
     while True:
-        if seq_sum < s: j += 1; seq_sum += data[j]
-        if seq_sum > s: seq_sum -= data[i]; i += 1
-        if seq_sum == s: break
+        if seq_sum < s:     j += 1; seq_sum += data[j]
+        if seq_sum > s:     seq_sum -= data[i]; i += 1
+        if seq_sum == s:    break
     return i,j
 
 
