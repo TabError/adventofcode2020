@@ -1,5 +1,3 @@
-import itertools
-
 with open("11data") as f:
     data = f.read().splitlines()
 # with open("11test") as f:
