@@ -15,3 +15,16 @@ for i in l:
 		for k in l:
 			if i+j+k == 2020:
 				print("{i} * {j} * {k} = {0}".format(i*j*k, i=i, j=j, k=k))
+
+
+def foo():
+	print("hello")
+	shortString = "Garden" * 3
+	print(shortString)
+	eggs()
+
+def eggs():
+	print(2*"No")
+
+
+foo()
