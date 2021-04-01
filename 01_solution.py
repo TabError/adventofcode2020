@@ -25,3 +25,9 @@ def foo():
 
 
 foo()
+
+
+def spam(x):
+	return 1000*x
+
+print(spam("spam"))
