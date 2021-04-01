@@ -21,10 +21,7 @@ def foo():
 	print("hello")
 	shortString = "Garden" * 3
 	print(shortString)
-	eggs()
 
-def eggs():
-	print(2*"No")
 
 
 foo()
